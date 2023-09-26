@@ -1,0 +1,10 @@
+[[package]]
+name = "zsh"
+
+[[package]]
+name = ".config"
+target = "~/.config"
+
+[[package]]
+name = ".local"
+target = "~/.local"
