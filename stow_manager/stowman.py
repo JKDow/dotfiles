@@ -33,7 +33,6 @@ def stow_all():
 def unstow_all():
     # The unstow logic is similar to the stow logic.
     # Load the TOML file, and for each package run `stow -D`.
-    print("Triggering Unstow")
     try:
         config = toml.load(CONFIG_FILE)
     except FileNotFoundError:
@@ -54,9 +53,7 @@ def unstow_all():
 
 
 if __name__ == "__main__":
-    print("Starting python internal")
     if len(sys.argv) != 2 or sys.argv[1] not in {"stow", "unstow"}:
-        print("syscrash")
         sys.exit("Usage: stow_manager.py <stow|unstow>")
 
     if sys.argv[1] == "stow":
@@ -64,4 +61,3 @@ if __name__ == "__main__":
     else:
         unstow_all()
 
-    print("Pythonend")
