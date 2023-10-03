@@ -68,5 +68,7 @@ return require('packer').startup(function(use)
     
     use 'voldikss/vim-floaterm'
 
+    use 'github/copilot.vim'
+
 end)
 
