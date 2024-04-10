@@ -56,3 +56,26 @@ require('mason-lspconfig').setup({
   }
 })
 
+local null_ls = require("null-ls")
+
+null_ls.setup({
+    sources = {
+        null_ls.builtins.diagnostics.eslint,
+        null_ls.builtins.code_actions.eslint,
+        -- Add other tools like prettier here if you want
+        null_ls.builtins.formatting.prettier.with({
+            extra_filetypes = { "javascript", "typescript" },
+        }),
+    },
+    on_attach = function(client, bufnr)
+        if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_clear_autocmds({ group = "formatting", buffer = bufnr })
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                group = "formatting",
+                buffer = bufnr,
+                callback = function() vim.lsp.buf.format() end,
+            })
+        end
+    end,
+})
+
