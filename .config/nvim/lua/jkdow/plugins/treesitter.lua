@@ -3,9 +3,7 @@ return {
     build = ":TSUpdate",
     config = function()
         require("nvim-treesitter.configs").setup({
-            ensure_installed = {
-                "c", "lua", "vimdoc", "rust", "php", "blade",
-            },
+            ensure_installed = 'all',
 
             -- Install parsers synchronously (only applied to `ensure_installed`)
             sync_install = false,
