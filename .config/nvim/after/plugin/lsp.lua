@@ -53,25 +53,30 @@ require('mason-lspconfig').setup({
         })
         rust_tools.inlay_hints.enable()
     end,
+    html = function()
+        require('lspconfig').html.setup({
+            filetypes = { 'html', 'php' },
+        })
+    end,
   }
 })
 
 local null_ls = require("null-ls")
+local formatting_augroup = vim.api.nvim_create_augroup("formatting", { clear = true })
 
 null_ls.setup({
     sources = {
         null_ls.builtins.diagnostics.eslint,
         null_ls.builtins.code_actions.eslint,
-        -- Add other tools like prettier here if you want
         null_ls.builtins.formatting.prettier.with({
             extra_filetypes = { "javascript", "typescript" },
         }),
     },
     on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
-            vim.api.nvim_clear_autocmds({ group = "formatting", buffer = bufnr })
+            vim.api.nvim_clear_autocmds({ group = formatting_augroup, buffer = bufnr })
             vim.api.nvim_create_autocmd("BufWritePre", {
-                group = "formatting",
+                group = formatting_augroup,
                 buffer = bufnr,
                 callback = function() vim.lsp.buf.format() end,
             })

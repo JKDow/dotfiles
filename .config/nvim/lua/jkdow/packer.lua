@@ -66,8 +66,6 @@ return require('packer').startup(function(use)
     use('folke/tokyonight.nvim')
     use('joshdick/onedark.vim') 
     
-    use 'voldikss/vim-floaterm'
-
     use 'github/copilot.vim'
 
     use {
