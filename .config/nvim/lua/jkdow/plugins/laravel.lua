@@ -10,10 +10,11 @@ return {
     keys = {
         { "<leader>la", ":Laravel artisan<cr>" },
         { "<leader>lr", ":Laravel routes<cr>" },
-        { "<leader>lm", ":Laravel related<cr>" },
+        { "<leader>lf", ":Telescope laravel resources<cr>" },
     },
     event = { "VeryLazy" },
     opts = {
+        lsp_server = "intelephense",
         features = {
             null_ls = {
                 enable = true,
