@@ -63,6 +63,21 @@ return {
                         })
                         rust_tools.inlay_hints.enable()
                     end,
+                    intelephense = function()
+                        require('lspconfig').intelephense.setup({
+                            on_attach = function(client, bufnr)
+                                lsp_zero.default_keymaps({ buffer = bufnr })
+                            end,
+                            filetypes = { "php", "blade" },
+                            settings = {
+                                intelephense = {
+                                    files = {
+                                        associations = { "*.blade.php" }, -- Associate Blade files with PHP
+                                    }
+                                }
+                            }
+                        })
+                    end
                 }
             })
         end

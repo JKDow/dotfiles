@@ -1,23 +1,42 @@
 return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    config = function()
-        require("nvim-treesitter.configs").setup({
-            ensure_installed = 'all',
+    opts = {
+        ensure_installed = 'all',
+        -- Install parsers synchronously (only applied to `ensure_installed`)
+        sync_install = false,
 
-            -- Install parsers synchronously (only applied to `ensure_installed`)
-            sync_install = false,
+        -- Automatically install missing parsers when entering buffer
+        -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+        auto_install = true,
 
-            -- Automatically install missing parsers when entering buffer
-            -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-            auto_install = true,
+        indent = { enable = true },
 
-            indent = { enable = true },
-
-            highlight = {
-                enable = true,
-                additional_vim_regex_highlighting = { "php", "markdown" },
+        highlight = {
+            enable = true,
+            additional_vim_regex_highlighting = { "markdown" },
+        },
+    },
+    config = function(_, opts)
+        local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+        parser_config.blade = {
+            install_info = {
+                url = "https://github.com/EmranMR/tree-sitter-blade",
+                files = { "src/parser.c" },
+                branch = "main",
+                generate_required_npm = true,
+                requires_generate_from_grammar = true,
             },
+            filetype = "blade"
+        }
+
+        vim.filetype.add({
+            pattern = {
+                ['.*%.blade%.php'] = 'blade',
+            },
+
         })
-    end
+
+        require('nvim-treesitter.configs').setup(opts)
+    end,
 }
