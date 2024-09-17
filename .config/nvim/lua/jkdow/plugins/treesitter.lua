@@ -14,7 +14,7 @@ return {
 
         highlight = {
             enable = true,
-            additional_vim_regex_highlighting = { "markdown" },
+            additional_vim_regex_highlighting = false,
         },
     },
     config = function(_, opts)
@@ -24,19 +24,14 @@ return {
                 url = "https://github.com/EmranMR/tree-sitter-blade",
                 files = { "src/parser.c" },
                 branch = "main",
-                generate_required_npm = true,
-                requires_generate_from_grammar = true,
             },
             filetype = "blade"
         }
-
         vim.filetype.add({
             pattern = {
                 ['.*%.blade%.php'] = 'blade',
-            },
-
+            }
         })
-
         require('nvim-treesitter.configs').setup(opts)
     end,
 }

@@ -44,6 +44,8 @@ return {
             })
 
             local rust_tools = require('rust-tools')
+            local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
             require('mason').setup({})
             require('mason-lspconfig').setup({
                 handlers = {
@@ -65,6 +67,13 @@ return {
                     end,
                     intelephense = function()
                         require('lspconfig').intelephense.setup({
+                            commands = {
+                                IntelephenseIndex = {
+                                    function ()
+                                        vim.lsp.buf.execute_command({ command = 'intelephense.index.workspace' })
+                                    end
+                                },
+                            },
                             on_attach = function(client, bufnr)
                                 lsp_zero.default_keymaps({ buffer = bufnr })
                             end,
@@ -72,12 +81,13 @@ return {
                             settings = {
                                 intelephense = {
                                     files = {
-                                        associations = { "*.blade.php" }, -- Associate Blade files with PHP
+                                        associations = { "*.php", "*.blade.php" },
                                     }
                                 }
-                            }
+                            },
+                            capabilities = capabilities,
                         })
-                    end
+                    end,
                 }
             })
         end
