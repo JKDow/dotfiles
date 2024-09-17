@@ -52,6 +52,15 @@ vim.api.nvim_set_keymap('i', '<S-Down>', '<NOP>', { noremap = true, silent = tru
 vim.api.nvim_set_keymap('n', '<S-Up>', '<NOP>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '<S-Up>', '<NOP>', { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap('n', '<leader>P', ':set paste<CR>"+gP:set nopaste<CR>', { noremap = true, silent = true })
+-- paste from clipboard
+-- relies on xclip and xsel
+vim.keymap.set('n', '<leader>P', function()
+    -- Enable paste mode
+    vim.opt.paste = true
 
+    -- Paste from the system clipboard
+    vim.cmd('normal! "+p')
 
+    -- Disable paste mode
+    vim.opt.paste = false
+end, { noremap = true, silent = true })
