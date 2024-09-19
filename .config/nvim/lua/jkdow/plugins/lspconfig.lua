@@ -16,6 +16,7 @@ return {
             ensure_installed = {
                 "lua_ls",
                 "rust_analyzer",
+                "intelephense",
             },
             handlers = {
                 function(server_name)
@@ -46,10 +47,15 @@ return {
                         }
                     }
                 end,
-                ["intelephense"] = function ()
+                ["intelephense"] = function()
                     require('lspconfig').intelephense.setup({
-                        filetypes = { "php", "blade"},
+                        filetypes = { "php", "blade" },
                         capabilities = capabilities,
+                        settings = {
+                            files = {
+                                associations = {"*.blade.php", "php"}
+                            },
+                        },
                     })
                 end
             },
