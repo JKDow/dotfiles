@@ -46,6 +46,12 @@ return {
                         }
                     }
                 end,
+                ["intelephense"] = function ()
+                    require('lspconfig').intelephense.setup({
+                        filetypes = { "php", "blade"},
+                        capabilities = capabilities,
+                    })
+                end
             },
         })
 
