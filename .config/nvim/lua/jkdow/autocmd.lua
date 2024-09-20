@@ -22,7 +22,7 @@ autocmd('lspAttach', {
     callback = function (event)
         local opts = { buffer = event.buf }
         -- Todo: Have this only apply to attached buffer
-        vim.keymap.set('n', '<Leader>K', vim.lsp.buf.hover, opts)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
         vim.keymap.set('n', '<Leader>d', vim.diagnostic.open_float, opts)
         vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
