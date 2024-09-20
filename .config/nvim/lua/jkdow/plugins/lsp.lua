@@ -1,10 +1,15 @@
+--[[
+-- Automatically setup neovim LSP
+--]]
 return {
     'neovim/nvim-lspconfig',
     event = 'VeryLazy',
     dependencies = {
-        'williamboman/mason.nvim',
-        'williamboman/mason-lspconfig.nvim',
-        'b0o/schemastore.nvim',
+        'williamboman/mason.nvim',           -- Handle automatic installation of LSP
+        'williamboman/mason-lspconfig.nvim', -- Handle automatic setup of LSP
+        'b0o/schemastore.nvim',              -- JSON Parser to work with LSP
+        "nvimtools/none-ls.nvim",            -- Replacemet for Null-ls. Handles non-LSP sources integrating into LSP
+        "jay-babu/mason-null-ls.nvim",       -- Let Mason handle installation for None-LS
     },
     config = function()
         require('mason').setup()
@@ -53,7 +58,7 @@ return {
                         capabilities = capabilities,
                         settings = {
                             files = {
-                                associations = {"*.blade.php", "php"}
+                                associations = { "*.blade.php", "php" }
                             },
                         },
                     })
@@ -61,17 +66,23 @@ return {
             },
         })
 
-        -- Todo: Have this only apply to attached buffer
-        vim.keymap.set('n', '<Leader>K', function() vim.lsp.buf.hover() end)
-        vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end)
-        vim.keymap.set('n', '<Leader>d', function() vim.diagnostic.open_float() end)
-        vim.keymap.set('n', '<F3>', function() vim.lsp.buf.format() end)
-
         -- show diagnostic source for errors (which LSP it is from)
         vim.diagnostic.config({
             float = {
                 source = true
             },
         })
+
+        require("mason-null-ls").setup({
+            ensure_installed = {},
+            automatic_installation = true,
+            handlers = {},
+        })
+        --[[
+        require('null-ls').setup({
+            -- anything not supported by mason
+            sources = {},
+        })
+        --]]
     end
 }
