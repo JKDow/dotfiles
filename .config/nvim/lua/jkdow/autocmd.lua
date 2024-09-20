@@ -17,25 +17,10 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     end
 })
 
--- Set LSP keymaps
-autocmd('lspAttach', {
-    callback = function (event)
-        local opts = { buffer = event.buf }
-        -- Todo: Have this only apply to attached buffer
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-        vim.keymap.set('n', '<Leader>d', vim.diagnostic.open_float, opts)
-        vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
-        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-        vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
-        vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
-    end
-})
-
 -- Remove all trailing whitespace when saving a buffer
-autocmd({"BufWritePre"}, {
+autocmd({ "BufWritePre" }, {
     pattern = "*",
-    callback = function ()
+    callback = function()
         local cur_pos = vim.fn.getpos(".")
         vim.cmd([[%s/\s\+$//e]])
         vim.fn.setpos(".", cur_pos)

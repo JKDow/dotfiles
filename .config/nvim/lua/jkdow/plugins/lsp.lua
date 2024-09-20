@@ -16,6 +16,18 @@ return {
 
         local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+        -- Set LSP keymaps
+        local attach_keymaps = function(_, bufnr)
+            local opts = { buffer = bufnr }
+            vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+            vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+            vim.keymap.set('n', '<Leader>d', vim.diagnostic.open_float, opts)
+            vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
+            vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+            vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
+            vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
+        end
+
         require('mason-lspconfig').setup({
             automatic_installation = true,
             ensure_installed = {
@@ -26,7 +38,8 @@ return {
             handlers = {
                 function(server_name)
                     require("lspconfig")[server_name].setup({
-                        capabilities = capabilities
+                        capabilities = capabilities,
+                        on_attach = attach_keymaps,
                     })
                 end,
                 ["jsonls"] = function()
@@ -37,6 +50,7 @@ return {
                                 schemas = require('schemastore').json.schemas(),
                             },
                         },
+                        on_attach = attach_keymaps,
                     })
                 end,
                 ["lua_ls"] = function()
@@ -49,7 +63,8 @@ return {
                                     globals = { "vim", "it", "describe", "before_each", "after_each" },
                                 }
                             }
-                        }
+                        },
+                        on_attach = attach_keymaps,
                     }
                 end,
                 ["intelephense"] = function()
@@ -61,8 +76,12 @@ return {
                                 associations = { "*.blade.php", "php" }
                             },
                         },
+                        on_attach = attach_keymaps,
                     })
-                end
+                end,
+                ['rust_analyzer'] = function()
+                    -- Rust setup is handled elsewhere
+                end,
             },
         })
 
