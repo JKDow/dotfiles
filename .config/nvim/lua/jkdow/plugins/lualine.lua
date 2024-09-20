@@ -5,7 +5,7 @@ return {
         'nvim-tree/nvim-web-devicons',
         'arkav/lualine-lsp-progress',
         { "letieu/harpoon-lualine",    dependencies = { 'harpoon' } },
-        { 'AndreM222/copilot-lualine', dependencies = { 'copilot' } },
+        'AndreM222/copilot-lualine',
     },
     opts = {
         options = {

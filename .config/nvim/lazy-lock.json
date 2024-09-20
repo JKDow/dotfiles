@@ -7,6 +7,7 @@
   "cmp-path": { "branch": "main", "commit": "91ff86cd9c29299a64f968ebb45846c485725f23" },
   "cmp_luasnip": { "branch": "master", "commit": "05a9ab28b53f71d1aece421ef32fee2cb857a843" },
   "copilot": { "branch": "master", "commit": "1a237cf50372830a61d92b0adf00d3b23882e0e1" },
+  "copilot-cmp": { "branch": "master", "commit": "b6e5286b3d74b04256d0a7e3bd2908eabec34b44" },
   "copilot-lualine": { "branch": "main", "commit": "f40450c3e138766026327e7807877ea860618258" },
   "harpoon": { "branch": "harpoon2", "commit": "0378a6c428a0bed6a2781d459d7943843f374bce" },
   "harpoon-lualine": { "branch": "master", "commit": "eae10bc6bddddbc73daa0956ba4ee5cc29cf9a49" },
