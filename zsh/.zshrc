@@ -115,4 +115,4 @@ export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
-dotfiles_update
+dotfiles-update
