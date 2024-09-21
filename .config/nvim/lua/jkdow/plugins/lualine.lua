@@ -4,7 +4,7 @@ return {
     dependencies = {
         'nvim-tree/nvim-web-devicons',
         'arkav/lualine-lsp-progress',
-        { "letieu/harpoon-lualine",    dependencies = { 'harpoon' } },
+        { "letieu/harpoon-lualine", dependencies = { 'harpoon' } },
         'AndreM222/copilot-lualine',
     },
     opts = {
@@ -28,7 +28,10 @@ return {
         },
         sections = {
             lualine_a = { 'mode' },
-            lualine_b = { 'branch', 'diff', 'diagnostics' },
+            lualine_b = {
+                'filename',
+                'diagnostics',
+            },
             lualine_c = {
                 {
                     'harpoon2',
@@ -63,12 +66,13 @@ return {
                 'filetype'
             },
             lualine_y = {
+                'branch',
+                'diff',
                 {
                     require("lazy.status").updates,
                     cond = require("lazy.status").has_updates,
                     color = { fg = "#ff9e64" },
                 },
-                'filename',
             },
             lualine_z = { 'progress', 'location' }
         },
