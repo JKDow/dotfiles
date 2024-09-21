@@ -7,7 +7,6 @@ return {
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-path',
         'hrsh7th/cmp-cmdline',
-        -- 'hrsh7th/cmp-copilot',
         'L3MON4D3/LuaSnip',
         'saadparwaiz1/cmp_luasnip',
         'onsails/lspkind-nvim',
@@ -22,6 +21,7 @@ return {
 
         local has_words_before = function()
             if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+            ---@diagnostic disable-next-line: deprecated
             local line, col = unpack(vim.api.nvim_win_get_cursor(0))
             return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
         end
@@ -43,9 +43,18 @@ return {
         vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#87d787" })
 
         cmp.setup({
+            view = {
+                entries = "custom",
+            },
             window = {
                 completion = {
-                    col_offset = -2,
+                    border = "rounded",
+                    winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+                    col_offset = -3,
+                    side_padding = 1,
+                },
+                documentation = {
+                    border = "rounded",
                 },
             },
             snippet = {
@@ -88,7 +97,6 @@ return {
                                 return vim_item
                             end
                         end
-                        vim_item.abbr = vim.fn.strcharpart(vim_item.abbr, 0, 50) -- Limit abbreviation length
                         return vim_item
                     end
                 }),
@@ -114,14 +122,14 @@ return {
                 end, { "i", "s" }),
                 ["<C-n>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
-                        cmp.select_next_item()
+                        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
                     else
                         fallback()
                     end
                 end, { "i", "s" }),
                 ["<C-p>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
-                        cmp.select_prev_item()
+                        cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
                     else
                         fallback()
                     end
@@ -151,8 +159,8 @@ return {
             },
             sorting = {
                 priority_weight = 2,
-                cmp.config.compare.exact,
                 require("copilot_cmp.comparators").prioritize,
+                cmp.config.compare.exact,
                 cmp.config.compare.offset,
                 cmp.config.compare.score,
                 cmp.config.compare.recently_used,
