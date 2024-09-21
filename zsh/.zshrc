@@ -114,34 +114,3 @@ export NVM_DIR="$HOME/.nvm"
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 export PATH="$PATH:/opt/nvim-linux64/bin"
-
-check_for_dotfiles_update() {
-    # Replace with the absolute path to your dotfiles directory
-    DOTFILES_DIR="$HOME/dotfiles"
-
-    # Check if directory exists and is a git repository
-    if [ -d "$DOTFILES_DIR" ] && [ -d "$DOTFILES_DIR/.git" ]; then
-        cd "$DOTFILES_DIR" || return
-
-        # Fetch the latest changes from the remote
-        git fetch origin
-
-        # Check if the local branch is behind the remote
-        LOCAL=$(git rev-parse @)
-        REMOTE=$(git rev-parse "@{u}")
-        BASE=$(git merge-base @ "@{u}")
-
-        if [ "$LOCAL" = "$REMOTE" ]; then
-            echo "Dotfiles are up to date."
-        elif [ "$LOCAL" = "$BASE" ]; then
-            echo "Your dotfiles are behind the remote. Do you want to pull the latest changes? [y/N]"
-            read -r response
-            if [ "$response" = "y" ]; then
-                git pull
-            fi
-        fi
-    fi
-}
-
-check_for_dotfiles_update
-
