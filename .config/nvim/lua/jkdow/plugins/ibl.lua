@@ -5,4 +5,6 @@ return {
     ---@diagnostic disable-next-line: undefined-doc-name
     ---@type ibl.config
     opts = {},
+    lazy = true,
+    event = "BufEnter",
 }

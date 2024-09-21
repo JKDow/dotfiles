@@ -43,9 +43,7 @@ return {
         vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#87d787" })
 
         cmp.setup({
-            view = {
-                entries = "custom",
-            },
+            view = {},
             window = {
                 completion = {
                     border = "rounded",
