@@ -17,20 +17,8 @@ check_updates() {
     REMOTE_HASH=$(git rev-parse "$REMOTE_NAME/$BRANCH_NAME")
 
     if [ "$LOCAL_HASH" != "$REMOTE_HASH" ]; then
-        echo "🔄 New updates available for your dotfiles."
-        read -p "Do you want to pull the updates? (y/n) " choice
-        case "$choice" in
-            y|Y )
-                echo "Pulling updates..."
-                git pull "$REMOTE_NAME" "$BRANCH_NAME"
-                ;;
-            n|N )
-                echo "Skipping update."
-                ;;
-            * )
-                echo "Invalid input. Skipping update."
-                ;;
-        esac
+        echo "🔄 Updating dotfiles..."
+        git pull "$REMOTE_NAME" "$BRANCH_NAME"
     fi
 }
 
