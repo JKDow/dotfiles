@@ -28,6 +28,10 @@ return {
                 code_actions = {
                     ui_select_fallback = true,
                 },
+                float_win_config = {
+                    border = "rounded",
+                    borderchars = {"─", "│", "─", "│", "╭", "╮", "╯", "╰"},
+                },
             },
             server = {
                 on_attach = function(_, bufnr)

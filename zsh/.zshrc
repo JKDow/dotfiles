@@ -104,6 +104,7 @@ source $HOME/.cargo/env
 source $HOME/.zsh_profile
 
 bindkey -s ^f "tmux-sessionizer\n"
+bindkey -s ^t "tmux-sessionlist\n"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

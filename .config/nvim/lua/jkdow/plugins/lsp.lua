@@ -16,6 +16,10 @@ return {
 
         local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+            border = "rounded", -- You can also use "single", "double", "shadow", or any custom style
+        })
+
         -- Set LSP keymaps
         local attach_keymaps = function(_, bufnr)
             local opts = { buffer = bufnr }
