@@ -50,8 +50,9 @@ return {
                         function() vim.cmd.RustLsp('codeAction') end, opts)
                     vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
                     vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
-                    vim.keymap.set("n", "<leader>tom",
+                    vim.keymap.set("n", "<leader>.t",
                         function() vim.cmd.RustLsp('openCargo') end, opts)
+                    vim.keymap.set('n', '<leader>rs', vim.lsp.buf.rename, opts)
                 end
             },
             dap = {}, -- Debug addapter protocol
