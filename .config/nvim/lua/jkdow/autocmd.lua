@@ -26,3 +26,11 @@ autocmd({ "BufWritePre" }, {
         vim.fn.setpos(".", cur_pos)
     end
 })
+
+autocmd({ "BufEnter", "BufNewFile" }, {
+    pattern = { "*.slint" },
+    callback = function()
+        vim.bo.filetype = "slint"
+    end,
+    desc = "Set filetype for slint files",
+})
