@@ -19,6 +19,6 @@
 ((php_only) @injection.content
     (#set! injection.combined)
     (#set! injection.language php_only))
-((parameter) @injection.content                                                                                                 
+((parameter) @injection.content
     (#set! injection.include-children)
-    (#set! injection.language php-only)) 
+    (#set! injection.language php-only))

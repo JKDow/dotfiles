@@ -74,11 +74,11 @@ return {
                 end,
                 ["intelephense"] = function()
                     require('lspconfig').intelephense.setup({
-                        filetypes = { "php", "blade" },
+                        filetypes = { "php" },
                         capabilities = capabilities,
                         settings = {
                             files = {
-                                associations = { "*.blade.php", "php" }
+                                -- associations = { "php" }
                             },
                         },
                         on_attach = attach_keymaps,
