@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/.local/bin:/usr/local/bin:$HOME/.config/composer/vendor/bin:/usr/local/go/bin:$PATH
+export PATH="$PATH:$HOME/.dotnet/tools"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
