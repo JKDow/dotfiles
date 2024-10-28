@@ -119,6 +119,6 @@ export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
 # For apache CXF for SOAP APIs with Java
-export PATH="$PATH:/home/jkdow/Applications/apache=cxf-4.0.5/bin"
+export PATH="$PATH:/home/jkdow/Applications/apache-cxf-4.0.5/bin"
 
 dotfiles-update
