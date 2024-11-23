@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-DOTFILES_DIR="$HOME/dotfiles"
+DOTFILES_DIR="$(realpath "$HOME/dotfiles")"
+TARGET_DIR="$(realpath "$HOME")"
 
 packages=(
 	"nvim"
@@ -9,14 +10,18 @@ packages=(
 	"bin"
 )
 
+uninstall=false
+if [ "$1" == "-x" ]; then
+	uninstall=true
+fi
+
 # Install stow if it doesnt exist
 if ! command -v stow &>/dev/null; then
-	echo "GNU Stow not found. Attempting to install..."
 	if [ -f /etc/debian_version ]; then
 		sudo apt update
 		sudo apt install -y stow
 		echo "GNU Stow installed"
-	else 
+	else
 		echo "Unsupported system. Please install GNU stow"
 		exit 1
 	fi
@@ -24,11 +29,21 @@ fi
 
 cd "$DOTFILES_DIR" || { echo "Error: Could not find dotfiles directory"; exit 1; }
 
-for package in "${packages[@]}"; do 
-	echo "Installing $package..."
-	stow -v "$package"
-done
+if [ "$uninstall" = true ]; then
+    echo "Uninstalling packages..."
+    for package in "${packages[@]}"; do
+        echo "Uninstalling $package..."
+        stow -D -v --dir="$DOTFILES_DIR" --target="$TARGET_DIR" "$package"
+    done
+    echo "Dotfiles uninstalled successfully!"
+    exit 0
+else
+    for package in "${packages[@]}"; do
+        echo "Installing $package..."
+        stow -v --dir="$DOTFILES_DIR" --target="$TARGET_DIR" "$package"
+    done
 
-echo "Dotfiles installed successfully!"
+    echo "Dotfiles installed successfully!"
 
-exit 0
+    exit 0
+fi
