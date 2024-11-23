@@ -123,6 +123,6 @@ export PATH="$PATH:/home/jkdow/Applications/apache-cxf-4.0.5/bin"
 
 dotfiles-update
 
-tmux-git-autofetch() {(/home/jkdow/dotfiles/.config/tmux/plugins/tmux-git-autofetch/git-autofetch.tmux --current &)}
+tmux-git-autofetch() {(/home/jkdow/dotfiles/tmux/.config/tmux/plugins/tmux-git-autofetch/git-autofetch.tmux --current &)}
 add-zsh-hook chpwd tmux-git-autofetch
-    
+
