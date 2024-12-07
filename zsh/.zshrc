@@ -121,6 +121,11 @@ export PATH="$PATH:/opt/nvim-linux64/bin"
 # For apache CXF for SOAP APIs with Java
 export PATH="$PATH:/home/jkdow/Applications/apache-cxf-4.0.5/bin"
 
+# Onepassword sign in
+opsignin() {
+    eval "$(op signin)"
+}
+
 dotfiles-update
 
 tmux-git-autofetch() {(/home/jkdow/dotfiles/tmux/.config/tmux/plugins/tmux-git-autofetch/git-autofetch.tmux --current &)}

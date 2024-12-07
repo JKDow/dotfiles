@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# Fetch the sudo password from 1Password
+PASSWORD=$(op item get "Forge Sudo" --fields password --reveal)
+
+# Check if the command succeeded
+if [[ $? -ne 0 ]]; then
+    echo "Failed to retrieve the password from 1Password."
+    exit 1
+fi
+
+# Check if the password was retrieved successfully
+if [[ -z "$PASSWORD" ]]; then
+    echo "Password field is empty or not found."
+    exit 1
+fi
+
+# Copy to clipboard Linux with xclip or xsel
+if command -v xclip &>/dev/null; then
+    echo -n "$PASSWORD" | xclip -selection clipboard
+    echo "Password copied to clipboard with xclip."
+elif command -v xsel &>/dev/null; then
+    echo -n "$PASSWORD" | xsel --clipboard --input
+    echo "Password copied to clipboard xsel."
+else
+    echo "No clipboard utility found. Install 'xclip' or 'xsel'"
+    exit 1
+fi
+
+# Clear the password variable for security
+unset PASSWORD
+
