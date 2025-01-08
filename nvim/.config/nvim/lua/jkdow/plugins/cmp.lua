@@ -17,7 +17,12 @@ return {
         local luasnip = require('luasnip')
         local lspkind = require('lspkind')
 
-        -- require('luasnip/loaders/from_snipmate').lazy_load()
+        luasnip.config.set_config({
+            history = true,
+            updateevents = "TextChanged,TextChangedI",
+        })
+
+        require("luasnip.loaders.from_lua").lazy_load({ paths = "./snippets" })
 
         local has_words_before = function()
             if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
@@ -101,6 +106,7 @@ return {
                 }),
             },
             mapping = {
+                ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
                 ["<Tab>"] = vim.schedule_wrap(function(fallback)
                     if cmp.visible() and has_words_before() then
                         cmp.confirm({ select = true })

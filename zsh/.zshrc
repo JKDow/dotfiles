@@ -131,3 +131,5 @@ dotfiles-update
 tmux-git-autofetch() {(/home/jkdow/dotfiles/tmux/.config/tmux/plugins/tmux-git-autofetch/git-autofetch.tmux --current &)}
 add-zsh-hook chpwd tmux-git-autofetch
 
+eval 
+TWILIO_AC_ZSH_SETUP_PATH=/home/jkdow/.twilio-cli/autocomplete/zsh_setup && test -f $TWILIO_AC_ZSH_SETUP_PATH && source $TWILIO_AC_ZSH_SETUP_PATH; # twilio autocomplete setup
