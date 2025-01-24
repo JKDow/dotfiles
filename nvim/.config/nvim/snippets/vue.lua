@@ -6,9 +6,9 @@ ls.add_snippets("vue", {
     s("component", {
         t("<script setup>"),
         t({ "", "</script>", "" }),
-        t({ "", "<template>", "" }),
-        t({ "", "</template>" }),
-        t({ "", "<style scoped>", "" }),
-        t({ "", "</style>", "" }),
+        t({ "", "<template>" }),
+        t({ "", "</template>", "" }),
+        t({ "", "<style scoped>" }),
+        t({ "", "</style>" }),
     }),
 })
