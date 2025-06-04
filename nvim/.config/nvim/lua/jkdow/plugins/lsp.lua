@@ -77,9 +77,23 @@ return {
                         filetypes = { "php" },
                         capabilities = capabilities,
                         settings = {
-                            files = {
-                                -- associations = { "php" }
-                            },
+                            intelephense = {
+                                stubs = {
+                                    "wordpress", "woocommerce", "wp-cli", "wp-cli-commands",
+                                    "apache", "bcmath", "bz2", "calendar", "Core", "ctype", "curl", "date",
+                                    "dba", "dom", "enchant", "exif", "FFI", "fileinfo", "filter", "ftp",
+                                    "gd", "gettext", "gmp", "hash", "iconv", "imap", "intl", "json",
+                                    "ldap", "libxml", "mbstring", "mcrypt", "mysqli", "openssl",
+                                    "pcntl", "pcre", "PDO", "pdo_mysql", "pdo_sqlite", "Phar",
+                                    "posix", "random", "readline", "Reflection", "session", "shmop",
+                                    "SimpleXML", "soap", "sockets", "sodium", "SPL", "sqlite3", "standard",
+                                    "superglobals", "sysvsem", "sysvshm", "tokenizer", "xml",
+                                    "xmlreader", "xmlwriter", "xsl", "Zend OPcache", "zip", "zlib"
+                                },
+                                files = {
+                                    maxSize = 5000000,
+                                }
+                            }
                         },
                         on_attach = attach_keymaps,
                     })
