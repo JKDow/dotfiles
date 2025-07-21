@@ -116,7 +116,7 @@ export NVM_DIR="$HOME/.nvm"
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 # For Neovim binary
-export PATH="$PATH:/opt/nvim-linux64/bin"
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 # For apache CXF for SOAP APIs with Java
 export PATH="$PATH:/home/jkdow/Applications/apache-cxf-4.0.5/bin"

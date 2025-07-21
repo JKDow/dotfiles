@@ -37,7 +37,6 @@ return {
             automatic_installation = true,
             ensure_installed = {
                 "lua_ls",
-                "rust_analyzer",
                 "intelephense",
             },
             handlers = {
@@ -98,10 +97,12 @@ return {
                         on_attach = attach_keymaps,
                     })
                 end,
-                ['rust_analyzer'] = function()
-                    -- Rust setup is handled elsewhere
-                end,
             },
+        })
+        -- Non Mason LSPs
+        require('lspconfig').slint_lsp.setup({
+            capabilities = capabilities,
+            on_attach = attach_keymaps,
         })
 
         -- show diagnostic source for errors (which LSP it is from)

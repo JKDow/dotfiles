@@ -1,5 +1,6 @@
 return {
     "rcarriga/nvim-notify",
+    version = "3.14.*",
     config = function()
         local notify = require("notify")
         -- For transparency
@@ -8,6 +9,6 @@ return {
             stages = "static",
         })
         -- reset vim notify function with the notify one
-        vim.notify = notify.notify
+        vim.notify = notify
     end
 }

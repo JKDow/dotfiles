@@ -1,6 +1,7 @@
 return {
     'mrcjkb/rustaceanvim',
-    version = '5.7.0',
+    version = '^6',
+    lazy = false,
     ft = "rust",
     dependencies = {
         {
@@ -55,7 +56,7 @@ return {
                     vim.keymap.set('n', '<leader>rs', vim.lsp.buf.rename, opts)
                 end
             },
-            dap = {}, -- Debug addapter protocol
+            -- dap = {}, -- Debug addapter protocol
         }
     end
 }
