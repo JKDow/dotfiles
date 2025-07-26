@@ -13,6 +13,18 @@ return {
     },
     config = function()
         require('mason').setup()
+        require('mason-lspconfig').setup({
+            automatic_installation = true,
+            ensure_installed = {
+                "lua_ls",
+                "intelephense",
+                "vue_ls",
+                "vtsls",
+            },
+            automatic_enable = {
+                exclude = { 'vue_ls' },
+            },
+        })
 
         local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -33,74 +45,75 @@ return {
             vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
         end
 
-        require('mason-lspconfig').setup({
-            automatic_installation = true,
-            ensure_installed = {
-                "lua_ls",
-                "intelephense",
-            },
-            handlers = {
-                function(server_name)
-                    require("lspconfig")[server_name].setup({
-                        capabilities = capabilities,
-                        on_attach = attach_keymaps,
-                    })
-                end,
-                ["jsonls"] = function()
-                    require('lspconfig').jsonls.setup({
-                        capabilities = capabilities,
-                        settings = {
-                            json = {
-                                schemas = require('schemastore').json.schemas(),
-                            },
-                        },
-                        on_attach = attach_keymaps,
-                    })
-                end,
-                ["lua_ls"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.lua_ls.setup {
-                        capabilities = capabilities,
-                        settings = {
-                            Lua = {
-                                diagnostics = {
-                                    globals = { "vim", "it", "describe", "before_each", "after_each" },
-                                }
-                            }
-                        },
-                        on_attach = attach_keymaps,
+        vim.lsp.config('lua_ls', {
+            capabilities = capabilities,
+            settings = {
+                Lua = {
+                    diagnostics = {
+                        globals = { "vim", "it", "describe", "before_each", "after_each" },
                     }
-                end,
-                ["intelephense"] = function()
-                    require('lspconfig').intelephense.setup({
-                        filetypes = { "php" },
-                        capabilities = capabilities,
-                        settings = {
-                            intelephense = {
-                                stubs = {
-                                    "wordpress", "woocommerce", "wp-cli", "wp-cli-commands",
-                                    "apache", "bcmath", "bz2", "calendar", "Core", "ctype", "curl", "date",
-                                    "dba", "dom", "enchant", "exif", "FFI", "fileinfo", "filter", "ftp",
-                                    "gd", "gettext", "gmp", "hash", "iconv", "imap", "intl", "json",
-                                    "ldap", "libxml", "mbstring", "mcrypt", "mysqli", "openssl",
-                                    "pcntl", "pcre", "PDO", "pdo_mysql", "pdo_sqlite", "Phar",
-                                    "posix", "random", "readline", "Reflection", "session", "shmop",
-                                    "SimpleXML", "soap", "sockets", "sodium", "SPL", "sqlite3", "standard",
-                                    "superglobals", "sysvsem", "sysvshm", "tokenizer", "xml",
-                                    "xmlreader", "xmlwriter", "xsl", "Zend OPcache", "zip", "zlib"
-                                },
-                                files = {
-                                    maxSize = 5000000,
-                                }
-                            }
-                        },
-                        on_attach = attach_keymaps,
-                    })
-                end,
+                }
             },
+            on_attach = attach_keymaps,
         })
-        -- Non Mason LSPs
-        require('lspconfig').slint_lsp.setup({
+
+        vim.lsp.config('jsonls', {
+            capabilities = capabilities,
+            settings = {
+                json = {
+                    schemas = require('schemastore').json.schemas(),
+                },
+            },
+            on_attach = attach_keymaps,
+        })
+
+        vim.lsp.config('intelephense', {
+            filetypes = { "php" },
+            capabilities = capabilities,
+            settings = {
+                intelephense = {
+                    stubs = {
+                        "wordpress", "woocommerce", "wp-cli", "wp-cli-commands",
+                        "apache", "bcmath", "bz2", "calendar", "Core", "ctype", "curl", "date",
+                        "dba", "dom", "enchant", "exif", "FFI", "fileinfo", "filter", "ftp",
+                        "gd", "gettext", "gmp", "hash", "iconv", "imap", "intl", "json",
+                        "ldap", "libxml", "mbstring", "mcrypt", "mysqli", "openssl",
+                        "pcntl", "pcre", "PDO", "pdo_mysql", "pdo_sqlite", "Phar",
+                        "posix", "random", "readline", "Reflection", "session", "shmop",
+                        "SimpleXML", "soap", "sockets", "sodium", "SPL", "sqlite3", "standard",
+                        "superglobals", "sysvsem", "sysvshm", "tokenizer", "xml",
+                        "xmlreader", "xmlwriter", "xsl", "Zend OPcache", "zip", "zlib"
+                    },
+                    files = {
+                        maxSize = 5000000,
+                    }
+                }
+            },
+            on_attach = attach_keymaps,
+        })
+
+        local vue_path = vim.fn.stdpath("data") .. "/mason/packages/vue-language-server"
+        local vue_plugin_path = vue_path .. "/node_modules/@vue/language-server"
+        local vue_plugin = {
+            name = "@vue/typescript-plugin",
+            location = vue_plugin_path,
+            languages = { "vue" },
+            configNamespace = "typescript",
+        }
+        vim.lsp.config('vtsls', {
+            filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+            settings = {
+                vtsls = {
+                    tsserver = { globalPlugins = { vue_plugin } }
+                }
+            },
+            on_attach = attach_keymaps,
+            capabilities = capabilities,
+        })
+
+        vim.lsp.enable('vue_ls')
+
+        vim.lsp.config('slint_lsp', {
             capabilities = capabilities,
             on_attach = attach_keymaps,
         })
