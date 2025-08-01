@@ -1,0 +1,25 @@
+[shell]
+args = ["-l", "-c", "tmux attach || tmux"]
+program = "/bin/zsh"
+
+[window]
+startup_mode = "Maximized"
+
+[font]
+size = 12
+
+[font.bold]
+family = "JetBrainsMonoNL Nerd Font Mono"
+style = "Bold"
+
+[font.italic]
+family = "JetBrainsMonoNL Nerd Font Mono"
+style = "Italic"
+
+[font.normal]
+family = "JetBrainsMonoNL Nerd Font Mono"
+style = "Regular"
+
+[font.bold_italic]
+family = "JetBrainsMonoNL Nerd Font Mono"
+style = "Bold Italic"
