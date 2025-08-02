@@ -1,9 +1,10 @@
-[shell]
+[terminal.shell]
 args = ["-l", "-c", "tmux attach || tmux"]
 program = "/bin/zsh"
 
 [window]
 startup_mode = "Maximized"
+opacity = 0.9
 
 [font]
 size = 12
@@ -23,3 +24,5 @@ style = "Regular"
 [font.bold_italic]
 family = "JetBrainsMonoNL Nerd Font Mono"
 style = "Bold Italic"
+
+[terminal]
