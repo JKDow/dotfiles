@@ -43,7 +43,7 @@ ZINIT=true
 packages=(
   "nvim"
   "tmux"
-  #"zsh"
+  "zsh"
   "bin"
   "alacritty"
   "waybar"

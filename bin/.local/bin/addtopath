@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+PATHDIR="$1"
+# Make sure an argument was provided
+if [[ -z "$PATHDIR" ]]; then
+    exit 1
+fi
+# Check dir is a directory
+if [[ ! -d "$PATHDIR" ]]; then
+    exit 1
+fi
+# Only add if not already in PATH
+case ":$PATH:" in
+    *":$PATHDIR:"*)
+        ;;
+    *)
+        export PATH="$PATHDIR:$PATH"
+        ;;
+esac
