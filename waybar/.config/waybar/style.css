@@ -1,198 +1,176 @@
-/****************************
- *     One Dark Waybar      *
- *      Cleaned & Styled    *
- ****************************/
-
-
-/****************************
-* STYLES
-*
-* Black:  #282c34
-* Red:    #E06C75
-* Green:  #98C379
-* Yellow: #E5C07B
-* Blue:   #61AFEF
-* Purple: #C678DD
-* Cyan:   #56B6C2
-* Gray:   #ABB2BF
-****************************/
+@import url("colors.css");
 
 /* GENERAL RESET & FONT */
 * {
     font-family: 'FontAwesome', 'Roboto', 'Helvetica', 'Arial', sans-serif;
     font-size: 13px;
 }
-
 window#waybar {
-    background-color: rgba(40, 44, 52, 0.85);    /* One Dark background */
-    border-bottom: 3px solid #5c6370;            /* One Dark gutter */
-    color: #abb2bf;                              /* One Dark foreground */
-    transition: background-color .4s, color .4s;
-    /* Optional: subtle shadow for floating feel */
-    box-shadow: 0 4px 12px 0 rgba(40, 44, 52, 0.25);
+    all:unset;
 }
-
 window#waybar.hidden {
     opacity: 0.2;
 }
-
-/* BUTTONS (for workspaces etc.) */
-button {
-    box-shadow: none;
-    border: none;
-    border-radius: 6px;
-    background: transparent;
-    transition: background .2s, box-shadow .2s;
+.modules-left {
+    padding:7px;
+    margin:10 0 3 10;
+    border-radius:10px;
+    background: alpha(@background,.6);
+    box-shadow: 0px 1px 1px alpha(@color8,.4);
 }
-button:hover {
-    background: rgba(56, 60, 74, 0.35);
-    box-shadow: 0 2px 8px 0 rgba(56, 60, 74, 0.15);
+.modules-center {
+    padding:7px;
+    margin:10 0 3 0;
+    border-radius:10px;
+    background: alpha(@background,.6);
+    box-shadow: 0px 1px 1px alpha(@color8,.4);
 }
-
-label:focus {
-    background-color: #21252b;
+.modules-right {
+    padding:7px;
+    margin: 10 10 3 0;
+    border-radius:10px;
+    background: alpha(@background,.6);
+    box-shadow: 0px 1px 1px alpha(@color8,.4);
 }
 
 /*************************************
  *           WORKSPACES              *
  *************************************/
 #workspaces {
-    margin: 0 4px;
+    padding: 0px 5px;
 }
 #workspaces button {
-    padding: 0 10px;
-    color: #abb2bf;
-    background: transparent;
+    all:unset;
+    padding: 0px 8px;
+    color: alpha(@color5,.4);
+    transition: all .2s ease;
 }
 #workspaces button:hover {
-    background: #313640;
-    color: #61afef;
+    color:rgba(0,0,0,0);
+    border: none;
+    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
+    transition: all 1s ease;
 }
-#workspaces button.focused {
-    background: #282c34;
-    color: #61afef;
-    font-weight: bold;
-    box-shadow: 0 2px 0 0 #61afef inset;
+#workspaces button.active {
+    color: @color3;
+    border: none;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
 }
-#workspaces button.urgent {
-    background: #e06c75;
-    color: #282c34;
+#workspaces button.empty {
+    color: alpha(@color8,.2);
+    border: none;
+    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .2);
 }
-
-.modules-left > widget:first-child > #workspaces { margin-left: 0; }
-.modules-right > widget:last-child > #workspaces { margin-right: 0; }
-
+#workspaces button.empty:hover {
+    color: rgba(0,0,0,0);
+    border: none;
+    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
+    transition: all 1s ease;
+}
+#workspaces button.empty.active {
+    color: @color4;
+    border: none;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
+}
 
 /*************************************
  *          MAIN MODULES             *
  *************************************/
-
-/* Shared module look for bar modules */
-#idle_inhibitor,
-#pulseaudio,
-#language,
-#keyboard-state,
-#scratchpad,
-#tray,
-#custom-media,
-#wireplumber,
-#mpd,
-#network,
-#cpu,
-#memory,
-#temperature,
-#backlight,
-#disk,
-#power-profiles-daemon,
-#battery,
-#clock,
-#custom-power,
-.bar-module {
-    background-color: #21252b;
-    color: #abb2bf;
-    padding: 1px 12px 0 12px;
-    margin: 0px 0px 4px 0px; /* Top, Right, Bottom, Left */
-    transition: background .25s, color .2s, box-shadow .2s;
-    box-shadow: 0 2px 0 0 rgba(97, 175, 239, 0.0) inset;
+#clock:hover, #network:hover,#battery:hover, #cpu:hover,#memory:hover,#temperature:hover{
+    transition: all .3s ease;
+    color:@color9;
 }
 
-/* === 1st Block: Idle Inhibitor === */
+#clock {
+    padding: 0px 5px;
+    color:@color7;
+    transition: all .3s ease;
+    min-width: 100px;
+}
+
 #idle_inhibitor {
-    box-shadow: 0 2px 0 0 #c678dd inset;
-    padding: 0px 16px 0px 12px;
+    padding: 0 8px;
+    margin: 0 4px;
+    color: @color7;
+}
+#idle_inhibitor:hover {
+    color: @color7;
 }
 #idle_inhibitor.activated {
-    color: #98c379;
-    box-shadow: 0 2px 0 0 #abb2bf inset;
+    color: @color5;
 }
 
-/* === 2nd Block: PulseAudio === */
 #pulseaudio {
-    box-shadow: 0 2px 0 0 #e5c07b inset;
+    margin: 0 4px;
+    padding: 0 8px;
+    color: @color7;
 }
 #pulseaudio:hover {
-    background-color: #3b4048;
+    color: @color6;
 }
 #pulseaudio.muted {
-    background-color: #5c6370;
-    color: #d19a66;
-    box-shadow: none;
 }
 
-/* === 3rd Block: Network === */
-#network {
-    box-shadow: 0 2px 0 0 #56b6c2 inset;
+#network{
+    padding: 0px 8px;
+    margin: 0 4px;
+    transition: all .3s ease;
+    color:@color7;
 }
 #network.disconnected {
-    background-color: #e06c75;
-    color: #282c34;
-    box-shadow: 0 2px 0 0 #e06c75 inset;
+    color: @color4;
 }
-
-/* === 4th Block: CPU === */
-#cpu {
-    box-shadow: 0 2px 0 0 #d19a66 inset;
-}
-
-/* === 5th Block: Memory === */
-#memory {
-    box-shadow: 0 2px 0 0 #98c379 inset;
-    margin: 0px 0px 4px 0px; /* Top, Right, Bottom, Left */
-}
-
-/* === 6th Block: Temperature === */
-#temperature {
-    min-width: 55px;
-    box-shadow: 0 2px 0 0 #e06c75 inset;
-}
-#temperature.critical {
-    background: #e06c75;
-    color: #fff;
-}
-
-/* === 7th Block: Clock === */
-#clock {
-    box-shadow: 0 2px 0 0 #61afef inset;
-    font-weight: 600;
-    min-width: 80px;        /* or wider, if you like */
-    letter-spacing: 0.07em;
+#network:hover {
+    color: @color6;
 }
 
 /* === Power: Custom Module === */
 #custom-power {
-    color: #e06c75;               /* One Dark Red for "Power" */
-    padding: 0 16px 0px 14px;              /* Slightly wider for emphasis */
-    margin: 0px 4px 4px 0px;
-    box-shadow: 0 2px 0 0 #e06c75 inset;  /* One Dark Red underline */
-    font-weight: 600;             /* Slightly bolder */
-    border-radius: 0px;           /* Slightly rounded for distinctness */
+    margin: 0 10px 0 4px;
+    padding: 0 8px;
+    font-weight: 600;
+    color:@color7;
+}
+#custom-power:hover {
+    color: @color6;
 }
 
-#custom-power:hover {
-    background-color: #3b4048;    /* Slight highlight on hover/active */
-    color: #fff;                  /* White for visibility */
-    box-shadow: 0 2px 0 0 #c678dd inset;  /* One Dark purple highlight */
+/*************************************
+ *          EXPANDED MODS            *
+ *************************************/
+
+#group-expand{
+    padding: 0px 5px;
+    transition: all .3s ease;
 }
+
+#custom-expand{
+    padding: 0px 5px;
+    color: @color7;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, .7);
+    transition: all .3s ease;
+}
+#custom-expand:hover{
+    color: @color6;
+    text-shadow: 0px 0px 2px rgba(255, 255, 255, .5);
+}
+#cpu,#memory,#temperature{
+    padding: 0px 8px;
+    margin: 0px 4px;
+    transition: all .3s ease;
+    color:@color3;
+
+}
+#temperature.critical {
+    color: @color2;
+}
+#custom-endpoint{
+    padding: 0px 5px;
+    color:alpha(@foreground,.3);
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, .7);
+    transition: all .3s ease;
+}
+
 
 /*************************************
  *          EXTRA MODULES            *
@@ -200,135 +178,101 @@ label:focus {
 
 /* Battery */
 #battery {
-    background: #3b4048;
-    color: #e5c07b;
-    box-shadow: 0 2px 0 0 #e5c07b inset;
 }
-#battery.charging, #battery.plugged {
-    background-color: #98c379;
-    color: #21252b;
-    box-shadow: 0 2px 0 0 #98c379 inset;
+#battery.charging,
+#battery.plugged {
 }
 #battery.critical:not(.charging) {
-    background-color: #e06c75;
-    color: #fff;
     animation: blink 1s steps(2, start) infinite;
 }
 @keyframes blink {
     to {
-        background: #fff;
-        color: #e06c75;
+        background: @color0;
+        color: @color1;
     }
-}
-
-/* Disk */
-#disk {
-    background: #282c34;
-    color: #d19a66;
-    box-shadow: 0 2px 0 0 #d19a66 inset;
-}
-
-/* Power Profiles */
-#power-profiles-daemon {
-    padding-right: 18px;
-}
-#power-profiles-daemon.performance {
-    background: #e06c75;
-    color: #fff;
-}
-#power-profiles-daemon.balanced {
-    background: #61afef;
-    color: #fff;
-}
-#power-profiles-daemon.power-saver {
-    background: #98c379;
-    color: #21252b;
-}
-
-/* Backlight */
-#backlight {
-    background: #5c6370;
-    color: #abb2bf;
-}
-
-/* Wireplumber */
-#wireplumber {
-    background: #abb2bf;
-    color: #282c34;
-}
-#wireplumber.muted {
-    background: #e06c75;
-    color: #fff;
-}
-
-/* Custom Media */
-#custom-media, #mpd {
-    background: #21252b;
-    color: #56b6c2;
-    min-width: 110px;
-}
-#custom-media.custom-spotify { background: #1db954; color: #fff; }
-#custom-media.custom-vlc     { background: #ffa000; color: #fff; }
-
-#mpd.disconnected { background: #e06c75; color: #fff; }
-#mpd.stopped      { background: #5c6370; }
-#mpd.paused       { background: #98c379; color: #21252b; }
-
-/* Tray */
-#tray {
-    background: #313640;
-}
-#tray > .passive { -gtk-icon-effect: dim; }
-#tray > .needs-attention {
-    background: #e06c75;
-    -gtk-icon-effect: highlight;
-}
-
-/* Scratchpad */
-#scratchpad {
-    background: rgba(40, 44, 52, 0.55);
-}
-#scratchpad.empty {
-    background: transparent;
-    box-shadow: none;
 }
 
 /*************************************
  *      OTHER & OPTIONAL MODULES     *
  *************************************/
+/* Disk */
+#disk {
+    color: @foreground;
+}
+
+/* Power Profiles */
+#power-profiles-daemon {
+    color: @foreground;
+}
+#power-profiles-daemon.performance {
+    color: @foreground;
+}
+#power-profiles-daemon.balanced {
+    color: @foreground;
+}
+#power-profiles-daemon.power-saver {
+    color: @foreground;
+}
+
+/* Backlight */
+#backlight {
+    color: @foreground;
+}
+
+/* Wireplumber */
+#wireplumber {
+    color: @foreground;
+}
+#wireplumber.muted {
+    color: @foreground;
+}
+
+#mpd {
+    color: @foreground;
+}
+#mpd.disconnected {
+    color: @foreground;
+}
+#mpd.stopped {
+}
+#mpd.paused {
+    color: @color0;
+}
+
+/* Tray */
+#tray {
+    color: @foreground;
+}
+#tray > .passive {
+    -gtk-icon-effect: dim;
+    color: @foreground;
+}
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+#scratchpad {
+    color: @foreground;
+}
+#scratchpad.empty {
+    color: @foreground;
+}
 #language,
 #keyboard-state {
-    background: #282c34;
-    color: #98c379;
-    min-width: 20px;
-    padding: 0 8px;
-    margin: 0 5px;
+    color: @foreground;
 }
 
 #keyboard-state > label.locked {
-    background: rgba(97, 175, 239, 0.16);
+    color: @foreground;
 }
 
+/* Privacy Indicators */
 #privacy {
-    padding: 0;
+    color: @foreground;
 }
 #privacy-item {
-    padding: 0 7px;
-    color: #fff;
-    background: #313640;
-    border-radius: 6px;
-    margin: 0 2px;
+    color: @foreground;
 }
-#privacy-item.screenshare { background: #cf5700; }
-#privacy-item.audio-in    { background: #1ca000; }
-#privacy-item.audio-out   { background: #0069d4; }
-
-
-/*************************************
- *         GENERAL UTILITIES         *
- *************************************/
-/* Shared bar module style for all core modules.
-   If @extend is not supported by your CSS processor,
-   copy the properties from `.bar-module` to each block above. */
-
+#privacy-item.screenshare { background: @color3; }
+#privacy-item.audio-in    { background: @color2; }
+#privacy-item.audio-out   { background: @color4; }
 

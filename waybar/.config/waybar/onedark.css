@@ -1,0 +1,41 @@
+/* CSS variables for Waybar
+ * One Dark color scheme
+ */
+
+/****************************
+* STYLES
+*
+* Black:  #282c34
+* Red:    #E06C75
+* Green:  #98C379
+* Yellow: #E5C07B
+* Blue:   #61AFEF
+* Purple: #C678DD
+* Cyan:   #56B6C2
+* Gray:   #ABB2BF
+****************************/
+
+@define-color cursor      #61AFEF;  /* accent blue */
+@define-color background  #282C34;  /* One Dark “black” */
+@define-color foreground  #ABB2BF;  /* One Dark “gray”  */
+
+/* normal colors */
+@define-color color0  #282C34;  /* black */
+@define-color color1  #E06C75;  /* red */
+@define-color color2  #98C379;  /* green */
+@define-color color3  #E5C07B;  /* yellow */
+@define-color color4  #61AFEF;  /* blue */
+@define-color color5  #C678DD;  /* purple/magenta */
+@define-color color6  #56B6C2;  /* cyan */
+@define-color color7  #ABB2BF;  /* light gray */
+
+/* bright colors (here: gutter gray + repeats of 1–7) */
+@define-color color8   #5C6370;  /* bright black (gutter gray) */
+@define-color color9   #E06C75;  /* bright red */
+@define-color color10  #98C379;  /* bright green */
+@define-color color11  #E5C07B;  /* bright yellow */
+@define-color color12  #61AFEF;  /* bright blue */
+@define-color color13  #C678DD;  /* bright magenta */
+@define-color color14  #56B6C2;  /* bright cyan */
+@define-color color15  #ABB2BF;  /* bright white (reuse light gray) */
+

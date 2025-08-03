@@ -11,8 +11,14 @@ unsetopt autocd beep
 bindkey -e
 
 # --- ENV AND PATHS ---
-# local scripts
-export PATH=$PATH:$HOME/.local/bin
+export DOTUTILS=$HOME/.local/dot_utils
+
+path=(
+    $path
+    $HOME/.local/bin # local binaries
+    $HOME/.config/composer/vendor/bin # PHP composer
+    /usr/local/go/bin # GO
+)
 # rust
 if [ -f "$HOME/.cargo/env" ]; then
     source $HOME/.cargo/env
@@ -21,10 +27,8 @@ fi
 if [ -f "/usr/share/nvm/init-nvm.sh" ]; then
     source /usr/share/nvm/init-nvm.sh
 fi
-# php composer
-addtopath $HOME/.config/composer/vendor/bin
-# go binaries
-addtopath /usr/local/go/bin
+
+alias ls='ls --color=auto'
 
 # --- COMPINIT ---
 zstyle :compinstall filename "${HOME}/.zshrc"
@@ -74,3 +78,6 @@ if command -v starship &>/dev/null; then
 else
   export PS1='%n@%m %1~ %# '
 fi
+
+# --- CLEANUP ---
+typeset -U path
