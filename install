@@ -1,6 +1,29 @@
 #!/usr/bin/env bash
 
 # ──────────────────────────────────────────────────────────────────────────────
+# Configuration
+# ──────────────────────────────────────────────────────────────────────────────
+DOTFILES_DIR="$(realpath "$HOME/dotfiles")"
+TARGET_DIR="$(realpath "$HOME")"
+TPM_DIR="$DOTFILES_DIR/tmux/.config/tmux/plugins/tpm"
+ZINIT_DIR="$(realpath "$HOME/.local/share/zinit")"
+ZINIT=true
+
+packages=(
+  "nvim"
+  "tmux"
+  "zsh"
+  "bin"
+  "alacritty"
+  "waybar"
+  "starship"
+  "wallust"
+  "waypaper"
+  "hyprland"
+  "wofi"
+)
+
+# ──────────────────────────────────────────────────────────────────────────────
 # Simple logger functions
 # ──────────────────────────────────────────────────────────────────────────────
 # Colors
@@ -30,27 +53,6 @@ info()    { _log "INFO"    "$BLUE"   "$@"; }
 success() { _log "SUCCESS" "$GREEN"  "$@"; }
 warn()    { _log "WARNING" "$YELLOW" "$@"; }
 error()   { _log "ERROR"   "$RED"    "$@"; }
-
-# ──────────────────────────────────────────────────────────────────────────────
-# Configuration
-# ──────────────────────────────────────────────────────────────────────────────
-DOTFILES_DIR="$(realpath "$HOME/dotfiles")"
-TARGET_DIR="$(realpath "$HOME")"
-TPM_DIR="$DOTFILES_DIR/tmux/.config/tmux/plugins/tpm"
-ZINIT_DIR="$(realpath "$HOME/.local/share/zinit")"
-ZINIT=true
-
-packages=(
-  "nvim"
-  "tmux"
-  "zsh"
-  "bin"
-  "alacritty"
-  "waybar"
-  "starship"
-  "wallust"
-  "waypaper"
-)
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Parse args
