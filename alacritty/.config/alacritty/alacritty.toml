@@ -1,3 +1,6 @@
+[general]
+import = ["~/.config/alacritty/colors.toml"]
+
 [terminal.shell]
 args = ["-l", "-c", "tmux attach || tmux"]
 program = "/bin/zsh"

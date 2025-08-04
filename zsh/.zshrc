@@ -81,3 +81,5 @@ fi
 
 # --- CLEANUP ---
 typeset -U path
+
+fastfetch

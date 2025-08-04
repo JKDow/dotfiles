@@ -13,21 +13,21 @@ window#waybar.hidden {
 }
 .modules-left {
     padding:7px;
-    margin:10 0 3 10;
+    margin: 5px 0px 3px 10px;
     border-radius:10px;
     background: alpha(@background,.6);
     box-shadow: 0px 1px 1px alpha(@color8,.4);
 }
 .modules-center {
     padding:7px;
-    margin:10 0 3 0;
+    margin: 5px 0 3px 0;
     border-radius:10px;
     background: alpha(@background,.6);
     box-shadow: 0px 1px 1px alpha(@color8,.4);
 }
 .modules-right {
     padding:7px;
-    margin: 10 10 3 0;
+    margin: 5px 10px 3px 0;
     border-radius:10px;
     background: alpha(@background,.6);
     box-shadow: 0px 1px 1px alpha(@color8,.4);
@@ -86,6 +86,8 @@ window#waybar.hidden {
     color:@color7;
     transition: all .3s ease;
     min-width: 100px;
+    font-weight: 600;
+    font-size: 15px;
 }
 
 #idle_inhibitor {

@@ -45,3 +45,6 @@ palette = "dark"
 # ¡ If either one is a directory, then both SHOULD be one. !
 # zathura = { template = 'zathura', target = '~/.config/zathura/zathurarc' }
 waybar = { src = 'waybar-colors.css', dst = '~/.config/waybar/colors.css' }
+hypr = { src = "hyprland-colors.conf", dst = "~/.config/hypr/colors.conf" }
+tmux = { src = "tmux-colors.conf", dst = "~/.config/tmux/colors.conf" }
+alacritty = { template = 'alacritty.toml', target = '~/.config/alacritty/colors.toml' }
