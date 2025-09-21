@@ -9,6 +9,7 @@
     // Choose the order of the modules
     "modules-left": [
         "hyprland/workspaces",
+        "group/apps",
     ],
     "modules-center": [
         //"hyprland/window"
@@ -30,6 +31,20 @@
             "click-to-reveal": true
         },
         "modules": ["custom/expand","cpu","memory","temperature","custom/endpoint"],
+    },
+
+    "group/apps": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-duration": 600,
+            "transition-left-to-right": true,
+            "click-to-reveal": false
+        },
+        "modules": [
+            "custom/apps",
+            "custom/terminal",
+            "custom/chrome"
+        ]
     },
 
     //********************************//
@@ -230,5 +245,22 @@
     "custom/endpoint":{
         "format": "|",
         "tooltip": false
+    },
+
+    "custom/apps": {
+        "format": "",
+        "tooltip": false
+    },
+    "custom/terminal": {
+        "format": "",
+        "tooltip": true,
+        "tooltip-format": "Alacritty",
+        "on-click": "alacritty"
+    },
+    "custom/chrome": {
+        "format": "",
+        "tooltip": true,
+        "tooltip-format": "Google Chrome",
+        "on-click": "google-chrome-stable"
     },
 }
