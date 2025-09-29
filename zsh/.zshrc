@@ -137,3 +137,17 @@ TWILIO_AC_ZSH_SETUP_PATH=/home/jkdow/.twilio-cli/autocomplete/zsh_setup && test 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 alias arduino="arduino-cli"
+
+# Add this to your ~/.zshrc
+whatsmyip() {
+  echo "📡 Local IP addresses:"
+  ip -4 addr show | awk '/inet / {print $2, "->", $NF}'
+  ip -6 addr show | awk '/inet6 / {print $2, "->", $NF}'
+  echo
+
+  echo "🌍 Public IPv4:"
+  curl -s https://ipv4.icanhazip.com
+  echo "🌍 Public IPv6:"
+  curl -s https://ipv6.icanhazip.com
+}
+
