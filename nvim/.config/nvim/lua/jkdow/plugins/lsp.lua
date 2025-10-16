@@ -32,11 +32,30 @@ return {
             border = "rounded", -- You can also use "single", "double", "shadow", or any custom style
         })
 
+
+        local prettier_filetypes = {
+            javascript = true,
+            javascriptreact = true,
+            typescript = true,
+            typescriptreact = true,
+            vue = true,
+            json = true,
+            css = true,
+            scss = true,
+            html = true,
+            markdown = true,
+            yaml = true,
+        }
+
         -- Set LSP keymaps
         local attach_keymaps = function(_, bufnr)
             local opts = { buffer = bufnr }
             vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-            vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+            vim.keymap.set("n", "gd", function()
+                require("telescope.builtin").lsp_definitions({
+                    jump_type = "auto",
+                })
+            end, { silent = true })
             vim.keymap.set('n', '<Leader>d', vim.diagnostic.open_float, opts)
             vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
             vim.keymap.set('n', '<leader>rs', vim.lsp.buf.rename, opts)
@@ -47,14 +66,11 @@ return {
                 vim.lsp.buf.format({
                     async = false,
                     filter = function(client)
-                        -- Prefer null-ls (Prettier)
-                        if client.name == "null-ls" then
-                            return true
+                        local ft = vim.bo.filetype
+                        if prettier_filetypes[ft] then
+                            return client.name == "null-ls"
                         end
-                        -- If no null-ls client is attached, fall back to the first that supports formatting
-                        local clients = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })
-                        local has_null_ls = vim.iter(clients):any(function(c) return c.name == "null-ls" end)
-                        return not has_null_ls
+                        return client.name ~= "null-ls"
                     end,
                 })
             end, opts)
