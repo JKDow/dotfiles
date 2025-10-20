@@ -1,7 +1,8 @@
 -- Leader is <space>
 vim.g.mapleader = " "
--- Return to Netrw
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+-- Return to Netrw (Disabled due to oil)
+-- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+
 -- Move current line up/down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")

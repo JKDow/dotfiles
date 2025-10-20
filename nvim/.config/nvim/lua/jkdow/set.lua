@@ -31,3 +31,5 @@ vim.opt.updatetime = 50
 
 vim.opt.wildmode = 'longest:full,full'
 vim.opt.completeopt = 'menuone,longest,preview'
+
+vim.opt.laststatus = 3

@@ -14,12 +14,12 @@ return {
             component_separators = { left = '', right = '' },
             section_separators = { left = '', right = '' },
             disabled_filetypes = {
-                statusline = {},
+                statusline = { "oil_header" },
                 winbar = {},
             },
-            ignore_focus = {},
+            ignore_focus = { "oil_header" },
             always_divide_middle = true,
-            globalstatus = false,
+            globalstatus = true,
             refresh = {
                 statusline = 1000,
                 tabline = 1000,
