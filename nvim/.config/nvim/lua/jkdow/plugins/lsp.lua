@@ -32,17 +32,48 @@ return {
             border = "rounded", -- You can also use "single", "double", "shadow", or any custom style
         })
 
+
+        local prettier_filetypes = {
+            javascript = true,
+            javascriptreact = true,
+            typescript = true,
+            typescriptreact = true,
+            vue = true,
+            json = true,
+            css = true,
+            scss = true,
+            html = true,
+            markdown = true,
+            yaml = true,
+        }
+
         -- Set LSP keymaps
         local attach_keymaps = function(_, bufnr)
             local opts = { buffer = bufnr }
             vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-            vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+            vim.keymap.set("n", "gd", function()
+                require("telescope.builtin").lsp_definitions({
+                    jump_type = "auto",
+                })
+            end, { silent = true })
             vim.keymap.set('n', '<Leader>d', vim.diagnostic.open_float, opts)
-            vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
             vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
             vim.keymap.set('n', '<leader>rs', vim.lsp.buf.rename, opts)
             vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
             vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
+            -- Use prettier (via null-ls) if available, otherwise fall back to the first available formatter
+            vim.keymap.set("n", "<leader>f", function()
+                vim.lsp.buf.format({
+                    async = false,
+                    filter = function(client)
+                        local ft = vim.bo.filetype
+                        if prettier_filetypes[ft] then
+                            return client.name == "null-ls"
+                        end
+                        return client.name ~= "null-ls"
+                    end,
+                })
+            end, opts)
         end
 
         vim.lsp.config('lua_ls', {
@@ -130,12 +161,23 @@ return {
             automatic_installation = true,
             handlers = {},
         })
-        --[[
-        require('null-ls').setup({
-            -- anything not supported by mason
-            sources = {},
+
+        local null_ls = require("null-ls")
+
+        null_ls.setup({
+            sources = {
+                -- Prefer prettierd; falls back to prettier if you also enable the line below
+                null_ls.builtins.formatting.prettierd.with({
+                    prefer_local = "node_modules/.bin",
+                    -- Only use project-local prettier (avoids global mismatches)
+                    env = { PRETTIERD_LOCAL_PRETTIER_ONLY = "1" },
+                }),
+
+                -- Optional fallback if prettierd isn’t installed/available:
+                null_ls.builtins.formatting.prettier.with({
+                    prefer_local = "node_modules/.bin",
+                }),
+            },
         })
-        --]]
-        --
     end
 }

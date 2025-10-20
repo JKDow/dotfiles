@@ -79,7 +79,20 @@ else
   export PS1='%n@%m %1~ %# '
 fi
 
+whatsmyip() {
+  echo "📡 Local IP addresses:"
+  ip -4 addr show | awk '/inet / {print $2, "->", $NF}'
+  ip -6 addr show | awk '/inet6 / {print $2, "->", $NF}'
+  echo
+
+  echo "🌍 Public IPv4:"
+  curl -s https://ipv4.icanhazip.com
+  echo "🌍 Public IPv6:"
+  curl -s https://ipv6.icanhazip.com
+}
+
 # --- CLEANUP ---
 typeset -U path
 
+# CLI system info display tool
 fastfetch
