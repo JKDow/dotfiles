@@ -235,7 +235,7 @@
 
     "custom/power": {
         "format" : "⏻",
-        "on-click": "$HOME/.config/waybar/scripts/power-menu.sh"
+        "on-click": "$HOME/.local/bin/power-menu.sh"
     },
 
     "custom/expand": {

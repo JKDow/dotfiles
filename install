@@ -123,6 +123,13 @@ install_all() {
   fi
   success "Tmux plugins installed"
 
+  info "Installing extra utilities"
+  if "$DOTFILES_DIR/utils/hyprbinds/install.sh" "$DOTFILES_DIR/utils/bin/"; then
+    success "Installed hyprbinds binary"
+  else
+    error "Failed to install hyprbinds binary"
+  fi
+
   success "All dotfiles installed successfully!"
 }
 
