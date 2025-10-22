@@ -32,7 +32,6 @@ return {
             border = "rounded", -- You can also use "single", "double", "shadow", or any custom style
         })
 
-
         local prettier_filetypes = {
             javascript = true,
             javascriptreact = true,

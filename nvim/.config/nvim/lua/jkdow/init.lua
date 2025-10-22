@@ -29,8 +29,6 @@ require("lazy").setup({
     checker = { enabled = true },
 })
 
--- require("jkdow.oil_header_split").setup()
-
 -- Load autocommands
 require("jkdow.autocmd")
 
