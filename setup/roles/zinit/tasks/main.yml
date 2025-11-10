@@ -1,0 +1,16 @@
+---
+- name: Ensure zinit root directory exists
+  become: false
+  ansible.builtin.file:
+    path: "{{ zinit_root }}"
+    state: directory
+    mode: '0755'
+
+- name: Clone or update zinit
+  become: false
+  ansible.builtin.git:
+    repo: "{{ zinit_repo }}"
+    dest: "{{ zinit_root }}/zinit.git"
+    version: main
+    update: yes
+

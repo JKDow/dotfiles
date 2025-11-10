@@ -1,0 +1,30 @@
+---
+- name: Only run aur role on Arch
+  ansible.builtin.meta: end_play
+  when: ansible_facts['distribution'] != 'Archlinux'
+
+- name: Ensure base-devel and git are present for building AUR packages
+  become: true
+  ansible.builtin.pacman:
+    name:
+      - base-devel
+      - git
+    state: present
+    update_cache: true
+
+- name: Allow AUR builder to run pacman without password
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/aur_builder_pacman
+    create: true
+    mode: '0440'
+    line: '{{ aur_builder_user }} ALL=(ALL) NOPASSWD: /usr/bin/pacman'
+    validate: 'visudo -cf %s'
+
+- name: Install yay from AUR
+  become: true
+  become_user: "{{ aur_builder_user }}"
+  kewlfft.aur.aur:
+    name: yay
+    state: present
+    use: auto

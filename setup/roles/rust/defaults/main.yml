@@ -1,0 +1,13 @@
+---
+rust_install_via_rustup: true
+rustup_init_url: "https://sh.rustup.rs"
+rust_home: "{{ lookup('env', 'HOME') }}/.cargo"
+rustup_bin: "{{ rust_home }}/bin/rustup"
+rustc_bin: "{{ rust_home }}/bin/rustc"
+
+# extra components you always want
+rust_components:
+  - rustfmt
+  - clippy
+  - rust-src
+  - rust-analyzer

@@ -1,0 +1,4 @@
+---
+zinit_root: "{{ lookup('env', 'HOME') }}/.local/share/zinit"
+zinit_repo: "https://github.com/zdharma-continuum/zinit.git"
+

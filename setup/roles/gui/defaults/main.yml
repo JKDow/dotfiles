@@ -1,0 +1,34 @@
+---
+gui_enable: true
+
+gui_core_packages:
+  - wayland
+  - xorg-xwayland
+  - wl-clipboard
+  - xdg-desktop-portal
+  - xdg-desktop-portal-hyprland
+  - pipewire
+  - pipewire-pulse
+  - wireplumber
+
+gui_fonts:
+  - noto-fonts
+  - noto-fonts-emoji
+
+gui_aur_fonts:
+  - nerd-fonts-jetbrains-mono
+
+gui_hyprland_packages:
+  - hyprland
+  - waybar
+  - wofi
+  - alacritty
+  - nemo
+
+gui_aur_packages:
+  - uwsm
+  - waypaper
+  - hyprlock
+  - hyprshot
+  - wallust
+  - google-chrome

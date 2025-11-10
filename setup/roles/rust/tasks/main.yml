@@ -1,0 +1,32 @@
+---
+- name: Check if rustup is installed
+  become: false
+  ansible.builtin.stat:
+    path: "{{ rustup_bin }}"
+  register: rustup_stat
+
+- name: Install Rust via rustup (non-interactive)
+  become: false
+  ansible.builtin.shell: |
+    curl --proto '=https' --tlsv1.2 -sSf {{ rustup_init_url }} | sh -s -- -y
+  args:
+    executable: /bin/bash
+  when:
+    - rust_install_via_rustup
+    - not rustup_stat.stat.exists
+  register: rustup_install
+  changed_when: rustup_install.rc == 0
+  check_mode: no
+
+- name: Install common Rust components
+  become: false
+  ansible.builtin.command: "{{ rustup_bin }} component add {{ item }}"
+  loop: "{{ rust_components }}"
+  register: rustup_component
+  when:
+    - rustup_stat.stat.exists or (rustup_install is defined and rustup_install.rc == 0)
+  changed_when: >
+    'up to date' not in rustup_component.stderr
+    and 'is already installed' not in rustup_component.stderr
+  failed_when: rustup_component.rc != 0
+  check_mode: no

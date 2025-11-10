@@ -1,0 +1,36 @@
+---
+- name: Ensure TPM directory exists
+  become: false
+  ansible.builtin.file:
+    path: "{{ tmux_tpm_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Clone or update TPM
+  become: false
+  ansible.builtin.git:
+    repo: "https://github.com/tmux-plugins/tpm"
+    dest: "{{ tmux_tpm_dir }}"
+    version: master
+    update: yes
+
+- name: Check if any TPM plugins are installed
+  become: false
+  ansible.builtin.stat:
+    path: "{{ tmux_tpm_dir }}/plugins"
+  register: tpm_plugins_dir
+
+- name: Install tmux plugins via TPM (headless, first run only)
+  become: false
+  ansible.builtin.shell: |
+    tmux start-server
+    tmux new-session -d -s __ansible_tpm || true
+    "{{ tmux_tpm_dir }}/bin/install_plugins"
+    tmux kill-session -t __ansible_tpm || true
+  args:
+    executable: /bin/bash
+  when: not tpm_plugins_dir.stat.exists
+  register: tpm_install
+  changed_when: tpm_install is defined and tpm_install.rc == 0
+  check_mode: no
+

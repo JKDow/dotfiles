@@ -1,0 +1,6 @@
+---
+dotfiles_path: "{{ lookup('env', 'HOME') }}/dotfiles"
+hyprbinds_install_script: "{{ dotfiles_path }}/setup/hyprbinds/install.sh"
+hyprbinds_target_dir: "{{ lookup('env', 'HOME') }}/.local/bin"
+hyprbinds_binary_name: "hyprbinds"
+

@@ -11,8 +11,6 @@ unsetopt autocd beep
 bindkey -e
 
 # --- ENV AND PATHS ---
-export DOTUTILS=$HOME/.local/dot_utils
-
 path=(
     $path
     $HOME/.local/bin # local binaries

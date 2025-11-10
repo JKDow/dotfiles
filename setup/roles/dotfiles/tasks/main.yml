@@ -1,0 +1,20 @@
+---
+- name: Ensure dotfiles directory exists
+  become: false
+  ansible.builtin.file:
+    path: "{{ dotfiles_path }}"
+    state: directory
+    mode: '0755'
+
+- name: Stow configured packages
+  become: false
+  ansible.builtin.command:
+    stow --verbose=2
+         --dir="{{ dotfiles_path }}"
+         --target="{{ ansible_facts['env'].HOME }}"
+         "{{ item }}"
+  args:
+    chdir: "{{ dotfiles_path }}"
+  register: stow_result
+  changed_when: '"LINK: " in stow_result.stderr'
+  loop: "{{ stow_packages }}"

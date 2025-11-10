@@ -1,0 +1,9 @@
+---
+- name: "Skip GUI role when disabled"
+  ansible.builtin.meta: end_play
+  when: not gui_enable
+
+- name: "Load GUI setup for Archlinux"
+  ansible.builtin.import_tasks: arch.yml
+  when: ansible_facts['distribution'] == 'Archlinux'
+

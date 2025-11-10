@@ -1,0 +1,14 @@
+---
+arch_base_packages:
+  - git
+  - stow
+  - curl
+  - wget
+  - neovim
+  - tmux
+  - zsh
+  - base-devel
+  - openssh
+  - python
+  - starship
+  - fastfetch

@@ -1,0 +1,73 @@
+---
+- name: Install core GUI dependencies (Arch)
+  become: true
+  ansible.builtin.pacman:
+    name: "{{ gui_core_packages }}"
+    state: present
+    update_cache: true
+
+- name: Install GUI fonts (Arch)
+  become: true
+  ansible.builtin.pacman:
+    name: "{{ gui_fonts }}"
+    state: present
+
+- name: Install Hyprland & desktop tools (Arch)
+  become: true
+  ansible.builtin.pacman:
+    name: "{{ gui_hyprland_packages }}"
+    state: present
+
+- name: Ensure XDG-ish dirs exist
+  become: false
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - .config
+    - .local/bin
+    - .local/share
+    - Pictures
+
+- name: Install Nerd Fonts via AUR
+  become: true
+  become_user: "{{ aur_builder_user | default(ansible_facts['user_id']) }}"
+  kewlfft.aur.aur:
+    use: yay
+    name: "{{ gui_aur_fonts | default([]) }}"
+    state: present
+  when: gui_aur_fonts | length > 0
+
+- name: Install GUI AUR packages via yay (per package)
+  become: true
+  become_user: "{{ aur_builder_user | default(ansible_facts['user_id']) }}"
+  kewlfft.aur.aur:
+    use: yay
+    name: "{{ item }}"
+    state: present
+  loop: "{{ gui_aur_packages }}"
+  loop_control:
+    label: "{{ item }}"
+  register: gui_aur_results
+  when: gui_aur_packages | length > 0
+
+- name: Summary of GUI AUR package installs
+  ansible.builtin.debug:
+    msg: "AUR {{ item.item }} -> {{ 'installed/updated' if item.changed else 'already present' }}"
+  loop: "{{ gui_aur_results.results | default([]) }}"
+  when: gui_aur_results is defined
+
+- name: Ensure Hyprland monitors.d directory exists
+  become: false
+  ansible.builtin.file:
+    path: "{{ ansible_facts['env'].HOME }}/.config/hypr/monitors.d"
+    state: directory
+    mode: '0755'
+
+- name: Render host-specific Hyprland monitor config
+  become: false
+  ansible.builtin.template:
+    src: hypr_host_monitors.conf.j2
+    dest: "{{ ansible_facts['env'].HOME }}/.config/hypr/monitors.d/host.conf"
+    mode: '0644'

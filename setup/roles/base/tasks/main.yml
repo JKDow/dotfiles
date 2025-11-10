@@ -1,0 +1,24 @@
+---
+- name: Show detected OS (for sanity)
+  ansible.builtin.debug:
+    msg: "Detected distribution: {{ ansible_facts['distribution'] }}"
+
+- name: Install base packages on Arch (per package)
+  become: true
+  ansible.builtin.pacman:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  loop: "{{ arch_base_packages }}"
+  loop_control:
+    label: "{{ item }}"
+  register: base_pkg_results
+  when: ansible_facts['distribution'] == 'Archlinux'
+
+- name: Ensure current user has zsh as login shell (if installed)
+  become: true
+  ansible.builtin.user:
+    name: "{{ ansible_facts['user_id'] }}"
+    shell: /bin/zsh
+  when: ansible_facts['distribution'] == 'Archlinux'
+

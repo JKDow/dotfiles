@@ -1,0 +1,33 @@
+---
+- name: Bootstrap this machine with my dotfiles
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  collections:
+    - kewlfft.aur
+
+  roles:
+    - role: base
+      tags: ['base']
+
+    - role: aur
+      tags: ['aur']
+
+    - role: dotfiles
+      tags: ['dotfiles']
+
+    - role: rust
+      tags: ['rust']
+
+    - role: zinit
+      tags: ['zinit']
+
+    - role: tmux
+      tags: ['tmux']
+
+    - role: hyprbinds
+      tags: ['hyprbinds']
+
+    - role: gui
+      tags: ['gui']

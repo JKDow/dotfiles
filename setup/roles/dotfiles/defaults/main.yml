@@ -1,0 +1,16 @@
+---
+dotfiles_path: "{{ lookup('env', 'HOME') }}/dotfiles"
+
+stow_packages:
+  - nvim
+  - tmux
+  - zsh
+  - bin
+  - alacritty
+  - waybar
+  - starship
+  - wallust
+  - waypaper
+  - hyprland
+  - wofi
+

@@ -1,0 +1,29 @@
+---
+- name: Ensure local bin dir exists
+  become: false
+  ansible.builtin.file:
+    path: "{{ hyprbinds_target_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Check if hyprbinds binary exists
+  become: false
+  ansible.builtin.stat:
+    path: "{{ hyprbinds_target_dir }}/{{ hyprbinds_binary_name }}"
+  register: hyprbinds_stat
+
+- name: Run hyprbinds installer
+  become: false
+  ansible.builtin.command: >
+    "{{ hyprbinds_install_script }}" "{{ hyprbinds_target_dir }}"
+  args:
+    chdir: "{{ dotfiles_path }}"
+  when: not hyprbinds_stat.stat.exists
+
+- name: Ensure hyprbinds binary is executable
+  become: false
+  ansible.builtin.file:
+    path: "{{ hyprbinds_target_dir }}/{{ hyprbinds_binary_name }}"
+    mode: '0755'
+  when: hyprbinds_stat.stat.exists
+
