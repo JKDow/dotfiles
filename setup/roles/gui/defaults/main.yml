@@ -16,7 +16,7 @@ gui_fonts:
   - noto-fonts-emoji
 
 gui_aur_fonts:
-  - nerd-fonts-jetbrains-mono
+  - ttf-jetbrains-mono-nerd
 
 gui_hyprland_packages:
   - hyprland

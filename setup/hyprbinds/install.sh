@@ -5,6 +5,14 @@ set -euo pipefail
 BIN_NAME="hyprbinds"
 BUILD_DIR="target/release"
 
+# Ensure rust installed and source cargo
+if [ -f "$HOME/.cargo/env" ]; then
+    source $HOME/.cargo/env
+else
+    echo "Error: Rust not installed"
+    exit 1
+fi
+
 # --- ARG CHECK ---
 if [[ $# -lt 1 ]]; then
   # echo "Usage: $0 <install_destination>"
