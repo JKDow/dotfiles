@@ -71,3 +71,13 @@
     src: hypr_host_monitors.conf.j2
     dest: "{{ ansible_facts['env'].HOME }}/.config/hypr/monitors.d/host.conf"
     mode: '0644'
+
+- name: Enable and start user systemd services for Hyprland extras
+  become: false
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+    scope: user
+  loop: "{{ gui_user_systemd_units }}"
+  failed_when: false

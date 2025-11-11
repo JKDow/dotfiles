@@ -10,6 +10,7 @@ gui_core_packages:
   - pipewire
   - pipewire-pulse
   - wireplumber
+  - alacritty
 
 gui_fonts:
   - noto-fonts
@@ -22,8 +23,11 @@ gui_hyprland_packages:
   - hyprland
   - waybar
   - wofi
-  - alacritty
   - nemo
+  - hyprpaper
+  - swaync
+  - hyprsunset
+  - hyprpolkitagent
 
 gui_aur_packages:
   - uwsm
@@ -32,3 +36,10 @@ gui_aur_packages:
   - hyprshot
   - wallust
   - google-chrome
+
+gui_user_systemd_units:
+  - waybar.service
+  - swaync.service
+  - hyprpaper.service
+  - hyprsunset.service
+  - hyprpolkitagent.service

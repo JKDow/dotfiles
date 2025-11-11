@@ -12,3 +12,5 @@ arch_base_packages:
   - python
   - starship
   - fastfetch
+  - ripgrep
+  - fzf
