@@ -1,5 +1,5 @@
 ---
-- name: Bootstrap this machine with my dotfiles
+- name: Bootstrap machine
   hosts: localhost
   connection: local
   gather_facts: true
@@ -31,3 +31,6 @@
 
     - role: gui
       tags: ['gui']
+
+    - role: login
+      tags: ['login']

@@ -1,0 +1,7 @@
+[Service]
+# Clear previous ExecStart
+ExecStart=
+# Start getty auto-logging in user
+ExecStart=-/sbin/agetty --noreset --noclear --autologin {{ autologin_user }} %I $TERM
+Type=simple
+

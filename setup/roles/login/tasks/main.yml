@@ -1,0 +1,19 @@
+---
+- name: Ensure autologin drop-in for getty
+  become: true
+  ansible.builtin.template:
+    src: override.conf.j2
+    dest: "/etc/systemd/system/getty@{{ autologin_tty }}.service.d/override.conf"
+    mode: '0644'
+
+- name: Reload systemd daemon
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Enable getty autologin service on {{ autologin_tty }}
+  become: true
+  ansible.builtin.systemd:
+    name: "getty@{{ autologin_tty }}.service"
+    enabled: true
+    state: restarted
