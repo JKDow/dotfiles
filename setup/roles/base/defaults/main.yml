@@ -14,3 +14,9 @@ arch_base_packages:
   - fastfetch
   - ripgrep
   - fzf
+
+arch_home_directories:
+  - .config
+  - .local/bin
+  - .local/share
+  - .local/state
