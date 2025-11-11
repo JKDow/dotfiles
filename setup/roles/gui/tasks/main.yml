@@ -7,17 +7,6 @@
   ansible.builtin.import_tasks: arch.yml
   when: ansible_facts['distribution'] == 'Archlinux'
 
-- name: Ensure wallpapers directory exists
-  become: false
-  ansible.builtin.file:
-    path: "{{ ansible_facts['env'].HOME }}/Pictures/wallpapers"
-    state: directory
-    mode: '0755'
-
-- name: Sync wallpapers from repo
-  become: false
-  ansible.builtin.copy:
-    src: "wallpapers/"
-    dest: "{{ ansible_facts['env'].HOME }}/Pictures/wallpapers/"
-    mode: '0644'
-  ignore_errors: false
+- name: "Load wallpaper setup for Archlinux"
+  ansible.builtin.import_tasks: wallpaper.yml
+  when: ansible_facts['distribution'] == 'Archlinux'

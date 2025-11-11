@@ -43,3 +43,6 @@ gui_user_systemd_units:
   - hyprpaper.service
   - hyprsunset.service
   - hyprpolkitagent.service
+
+wallpapers_dir: "{{ ansible_facts['env'].HOME }}/Pictures/wallpapers"
+default_wallpaper: "{{ wallpapers_dir }}/abstract-blocks.jpg"

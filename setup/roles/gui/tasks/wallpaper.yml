@@ -1,0 +1,47 @@
+- name: Ensure wallpapers directory exists
+  become: false
+  ansible.builtin.file:
+    path: "{{ ansible_facts['env'].HOME }}/Pictures/wallpapers"
+    state: directory
+    mode: '0755'
+
+- name: Sync wallpapers from repo
+  become: false
+  ansible.builtin.copy:
+    src: "wallpapers/"
+    dest: "{{ ansible_facts['env'].HOME }}/Pictures/wallpapers/"
+    mode: '0644'
+  ignore_errors: false
+
+- name: Ensure Hyprland scripts directory exists
+  become: false
+  ansible.builtin.file:
+    path: "{{ ansible_facts['env'].HOME }}/.config/hypr/scripts"
+    state: directory
+    mode: '0755'
+
+- name: Ensure wallpaper script is executable
+  become: false
+  ansible.builtin.file:
+    path: "{{ ansible_facts['env'].HOME }}/.config/hypr/scripts/wallpaper.sh"
+    mode: '0755'
+    state: file
+
+- name: Check if initial wallust theme has been generated
+  become: false
+  ansible.builtin.stat:
+    path: "{{ item }}"
+  loop:
+    - "{{ ansible_facts['env'].HOME }}/.config/hypr/colors.conf"
+    - "{{ ansible_facts['env'].HOME }}/.config/waybar/colors.css"
+  register: wallust_colors
+
+- name: Run initial wallpaper + wallust to generate theme
+  become: false
+  ansible.builtin.command: >
+    {{ ansible_facts['env'].HOME }}/.config/hypr/scripts/wallpaper.sh {{ default_wallpaper }}
+  when: >
+    (wallust_colors.results | selectattr('stat.exists', 'equalto', false) | list | length) > 0
+  register: wallust_seed
+  changed_when: true
+  check_mode: no
