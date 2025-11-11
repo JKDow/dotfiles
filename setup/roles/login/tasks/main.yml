@@ -1,4 +1,11 @@
 ---
+- name: Ensure override targer directory exists
+  become: true
+  ansible.builtin.file:
+    path: "/etc/systemd/system/getty@{{ autologin_tty }}.service.d"
+    state: directory
+    mode: '0755'
+
 - name: Ensure autologin drop-in for getty
   become: true
   ansible.builtin.template:
