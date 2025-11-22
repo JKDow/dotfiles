@@ -1,0 +1,17 @@
+---
+# roles/laptop/tasks/logind.yml
+
+- name: Ensure logind drop-in directory exists
+  become: true
+  ansible.builtin.file:
+    path: /etc/systemd/logind.conf.d
+    state: directory
+    mode: '0755'
+
+- name: Install laptop logind configuration
+  become: true
+  ansible.builtin.copy:
+    src: 10-laptop.conf
+    dest: /etc/systemd/logind.conf.d/10-laptop.conf
+    mode: '0644'
+  notify: Restart systemd-logind

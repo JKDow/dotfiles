@@ -20,6 +20,7 @@
         "idle_inhibitor",
         "pulseaudio",
         "network",
+        "battery",
         "custom/power"
     ],
 
@@ -30,7 +31,14 @@
             "transition-to-left": true,
             "click-to-reveal": true
         },
-        "modules": ["custom/expand","cpu","memory","temperature","custom/endpoint"],
+        "modules": [
+            "custom/expand",
+            "cpu",
+            "memory",
+            "temperature",
+            "backlight",
+            "custom/endpoint"
+        ],
     },
 
     "group/apps": {
@@ -53,7 +61,8 @@
     "backlight": {
         // "device": "acpi_video1",
         "format": "{percent}% {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
+        "tooltip-format": "Backlight: {percent}% {icon}"
     },
 
     "battery": {
@@ -64,12 +73,13 @@
         },
         "format": "{capacity}% {icon}",
         "format-full": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
+        "format-charging": "{capacity}% ",
         "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
+        // "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": ["", "", "", "", ""],
+        "on-click": "~/.config/hypr/scripts/powerprofile.sh"
     },
 
     "battery#bat2": {

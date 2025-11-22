@@ -3,6 +3,7 @@ return {
     build = ":TSUpdate",
     opts = {
         ensure_installed = 'all',
+        ignore_install = { "ipkg" },
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
 

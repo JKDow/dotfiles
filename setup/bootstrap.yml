@@ -9,28 +9,34 @@
 
   roles:
     - role: base
-      tags: ['base']
+      tags: ['base', 'core']
 
     - role: aur
-      tags: ['aur']
+      tags: ['aur', 'core']
 
     - role: dotfiles
-      tags: ['dotfiles']
+      tags: ['dotfiles', 'core']
 
     - role: rust
-      tags: ['rust']
+      tags: ['rust', 'dev', 'hyprbinds', 'tmux']
+
+    - role: node
+      tags: ['node', 'dev']
 
     - role: zinit
-      tags: ['zinit']
+      tags: ['zinit', 'shell']
 
     - role: tmux
-      tags: ['tmux']
+      tags: ['tmux', 'shell', 'dev']
 
     - role: hyprbinds
-      tags: ['hyprbinds']
+      tags: ['hyprbinds', 'desktop', 'shell']
 
     - role: gui
-      tags: ['gui']
+      tags: ['gui', 'desktop']
 
     - role: login
-      tags: ['login']
+      tags: ['login', 'desktop']
+
+    - role: laptop
+      tags: ['laptop', 'desktop']

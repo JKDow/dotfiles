@@ -1,0 +1,18 @@
+[Unit]
+Description=Wayland idle manager (swayidle for Hyprland)
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+
+ExecStart=/usr/bin/swayidle -w \
+    timeout 180  'brightnessctl -s set 30%%' \
+    resume       'brightnessctl -r' \
+    timeout 300  'hyprlock &' \
+    timeout 600  'systemctl suspend' \
+    before-sleep 'hyprlock &'
+
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target

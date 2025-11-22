@@ -1,0 +1,22 @@
+---
+# roles/node/tasks/main.yml
+
+- name: Ensure nvm and Node deps are installed via pacman
+  become: true
+  pacman:
+    name:
+      - nvm
+    state: present
+    update_cache: true
+
+- name: Install latest LTS Node with nvm (idempotent via alias)
+  ansible.builtin.shell:
+    cmd: |
+      set -e
+      # Load Arch's nvm init script; this sets NVM_DIR and sources nvm.sh
+      source /usr/share/nvm/init-nvm.sh
+      nvm install --lts
+      nvm alias default "lts/*"
+    executable: /bin/bash
+    creates: "{{ ansible_facts.env.HOME }}/.nvm/alias/default"
+

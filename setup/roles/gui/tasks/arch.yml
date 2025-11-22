@@ -49,14 +49,7 @@
   loop: "{{ gui_aur_packages }}"
   loop_control:
     label: "{{ item }}"
-  register: gui_aur_results
   when: gui_aur_packages | length > 0
-
-- name: Summary of GUI AUR package installs
-  ansible.builtin.debug:
-    msg: "AUR {{ item.item }} -> {{ 'installed/updated' if item.changed else 'already present' }}"
-  loop: "{{ gui_aur_results.results | default([]) }}"
-  when: gui_aur_results is defined
 
 - name: Ensure Hyprland monitors.d directory exists
   become: false

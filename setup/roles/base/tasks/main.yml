@@ -12,7 +12,6 @@
   loop: "{{ arch_base_packages }}"
   loop_control:
     label: "{{ item }}"
-  register: base_pkg_results
   when: ansible_facts['distribution'] == 'Archlinux'
 
 - name: Ensure current user has zsh as login shell (if installed)

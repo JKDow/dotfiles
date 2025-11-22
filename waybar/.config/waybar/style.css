@@ -201,20 +201,47 @@ window#waybar.hidden {
  *          EXTRA MODULES            *
  *************************************/
 
-/* Battery */
-#battery {
+/*************************************
+ * BATTERY & BACKLIGHT – match main modules
+ *************************************/
+#battery,
+#backlight {
+  padding: 0 8px;
+  margin: 0 4px;
+  transition: all .3s ease;
+  color: @color7;           /* same default as network/pulse */
+  font-weight: 600;
 }
+
+/* Hover = same behavior as other main modules */
+#battery:hover,
+#backlight:hover {
+  color: @color6;
+}
+
+/* Icon size to match your large glyphs on the right */
+#battery,
+#backlight {
+  font-size: 15px;          /* network/custom-power use 20px; 18px balances text+icon */
+}
+
+/* Battery states – subtle, not shouty */
 #battery.charging,
 #battery.plugged {
+  color: @color5;           /* “good/charging” accent */
 }
-#battery.critical:not(.charging) {
-    animation: blink 1s steps(2, start) infinite;
+
+/* Use your warning/critical colors (you already use @color2 for critical temp) */
+#battery.warning:not(.charging):not(.plugged) {
+  color: @color4;
 }
-@keyframes blink {
-    to {
-        background: @color0;
-        color: @color1;
-    }
+#battery.critical:not(.charging):not(.plugged) {
+  color: @color2;
+}
+
+/* Optional: tiny separator padding tweak when they sit adjacent */
+#backlight + #battery {
+  margin-left: 2px;
 }
 
 /*************************************
@@ -236,11 +263,6 @@ window#waybar.hidden {
     color: @foreground;
 }
 #power-profiles-daemon.power-saver {
-    color: @foreground;
-}
-
-/* Backlight */
-#backlight {
     color: @foreground;
 }
 

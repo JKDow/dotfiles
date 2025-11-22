@@ -1,5 +1,5 @@
 ---
-- name: Ensure override targer directory exists
+- name: Ensure override target directory exists
   become: true
   ansible.builtin.file:
     path: "/etc/systemd/system/getty@{{ autologin_tty }}.service.d"
@@ -12,6 +12,7 @@
     src: override.conf.j2
     dest: "/etc/systemd/system/getty@{{ autologin_tty }}.service.d/override.conf"
     mode: '0644'
+  notify: Restart getty autologin
 
 - name: Reload systemd daemon
   become: true
@@ -23,4 +24,5 @@
   ansible.builtin.systemd:
     name: "getty@{{ autologin_tty }}.service"
     enabled: true
-    state: restarted
+    state: started
+

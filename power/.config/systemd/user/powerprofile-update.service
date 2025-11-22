@@ -1,0 +1,7 @@
+[Unit]
+Description=Manage power-profiles-daemon based on AC and battery state
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/powerprofile-update.sh
+

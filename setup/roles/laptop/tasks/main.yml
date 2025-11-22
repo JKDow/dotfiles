@@ -1,0 +1,14 @@
+---
+- name: Install laptop packages on Arch
+  become: true
+  ansible.builtin.pacman:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  loop: "{{ arch_laptop_packages }}"
+  loop_control:
+    label: "{{ item }}"
+  when: ansible_facts['distribution'] == 'Archlinux'
+
+- import_tasks: power.yml
+- import_tasks: logind.yml

@@ -1,0 +1,11 @@
+---
+dotfiles_root: "{{ ansible_facts['env'].HOME }}/dotfiles"
+enable_linger_for_user: true
+
+arch_laptop_packages:
+  - power-profiles-daemon
+  - brightnessctl
+  - swayidle
+
+laptop_stow_packages:
+  - power

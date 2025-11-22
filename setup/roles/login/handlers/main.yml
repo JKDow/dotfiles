@@ -1,0 +1,6 @@
+- name: Restart getty autologin
+  become: true
+  ansible.builtin.systemd:
+    name: "getty@{{ autologin_tty }}.service"
+    state: restarted
+    daemon_reload: true
